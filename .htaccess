@@ -1,5 +1,8 @@
 <IfModule mod_headers.c>
 Header set Link "</llms.txt>; rel=\"describedby\"; type=\"text/plain\""
+<FilesMatch "\.(html|xml|txt)$">
+Header set Cache-Control "no-cache, must-revalidate"
+</FilesMatch>
 </IfModule>
 
 <FilesMatch "^(README\.md|package\.json|\.gitignore|\.nojekyll)$">
