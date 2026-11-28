@@ -73,13 +73,20 @@
       if (themeMeta) themeMeta.setAttribute("content", light ? "#f7f4ec" : "#000000");
     };
     applyTheme(root.getAttribute("data-theme") === "light");
-    var animTimer;
+    var animTimer, still = window.matchMedia("(prefers-reduced-motion: reduce)");
+    var isLight = root.getAttribute("data-theme") === "light";
     themeBtn.addEventListener("click", function () {
-      var light = root.getAttribute("data-theme") !== "light";
-      root.classList.add("theme-anim");
-      clearTimeout(animTimer);
-      animTimer = setTimeout(function () { root.classList.remove("theme-anim"); }, 650);
-      applyTheme(light);
+      isLight = !isLight;
+      var light = isLight;
+      var swap = function () {
+        root.classList.add("theme-spin");
+        applyTheme(light);
+        clearTimeout(animTimer);
+        animTimer = setTimeout(function () { root.classList.remove("theme-spin", "theme-anim"); }, 500);
+      };
+      if (still.matches) { applyTheme(light); }
+      else if (document.startViewTransition) { document.startViewTransition(swap); }
+      else { root.classList.add("theme-anim"); swap(); }
       try { localStorage.setItem("tema", light ? "terang" : "gelap"); } catch (e) {}
     });
   }
