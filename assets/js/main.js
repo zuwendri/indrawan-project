@@ -161,7 +161,7 @@
   function selectProduk(key) {
     var prevTenor = state.produk ? P().tenor[state.tenorIdx] : null;
     state.produk = key;
-    els.ktaNote.hidden = key !== "kta";
+    if (els.ktaNote) els.ktaNote.hidden = key !== "kta";
     var p = P();
     state.idx = Math.min(Math.floor(p.tabel.length / 3), p.tabel.length - 1);
     var found = p.tenor.indexOf(prevTenor);
