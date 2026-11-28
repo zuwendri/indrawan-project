@@ -73,12 +73,8 @@
       if (themeMeta) themeMeta.setAttribute("content", light ? "#f7f4ec" : "#000000");
     };
     applyTheme(root.getAttribute("data-theme") === "light");
-    var animTimer;
     themeBtn.addEventListener("click", function () {
       var light = root.getAttribute("data-theme") !== "light";
-      root.classList.add("theme-anim");
-      clearTimeout(animTimer);
-      animTimer = setTimeout(function () { root.classList.remove("theme-anim"); }, 650);
       applyTheme(light);
       try { localStorage.setItem("tema", light ? "terang" : "gelap"); } catch (e) {}
     });
